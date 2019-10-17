@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>选老婆咯</title>
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/jquery-migrate-1.0.0.js"></script>
+		
+		
+		<script>
+			/*
+			 1. 给开始按钮绑定单击事件
+			 	1.1 定义循环定时器 每隔20毫秒修改小相框的src属性
+			 	1.2 准备数组 存放图片的路径
+			 	1.3 随机抽取一张图片路径 设置给小相框的src
+			 
+			 2. 给结束按钮绑定单击事件
+			 	2.1 取消循环定时器
+			 	2.2 应该把随机抽取的图片路径设置给大相框的src属性
+			 */
+			
+			//定义数组存放图片的路径
+			var src = [
+				"img/man00.jpg",
+				"img/man01.jpg",
+				"img/man02.jpg",
+				"img/man03.jpg",
+				"img/man04.jpg",
+				"img/man05.jpg",
+				"img/man06.jpg",
+			]
+			
+			var sid;
+			var i;
+			
+			$(function(){
+				$("#stopID").prop("disabled",true)
+				
+				
+				$("#startID").click(function(){
+					//1.1 定义循环定时器 每隔20毫秒修改小相框的src属性
+					
+					sid = setInterval(function(){
+						$("#startID").prop("disabled",true)
+						$("#stopID").prop("disabled",false)
+						
+						
+						i = Math.floor(Math.random()*7);
+						
+						$("#img1ID").attr("src",src[i]);
+					},50)
+				})
+				
+				$("#stopID").click(function(){
+					clearInterval(sid)
+					
+					$("#startID").prop("disabled",false)
+					$("#stopID").prop("disabled",true)
+					
+					
+					
+					$("#img1ID").attr("src","img/man07.jpg");
+					$("#img2ID").attr("src","img/man07.jpg").hide();
+					$("#img2ID").show(500)
+					alert("恭喜你成为坦克驾驶员!")
+				
+				})
+
+			})
+			
+			
+			
+		</script>
+		
+	
+	</head>
+	<body>
+		<!-- 小像框 -->
+		<div style="border-style:dotted;width:160px;height:100px">
+			<img id="img1ID" src="img/man00.jpg" style="width:160px;height:100px" />
+		</div>
+
+		<!-- 大像框 -->
+		<div style="border-style:double;width:800px;height:500px;position:absolute;left:500px;top:10px">
+			<img id="img2ID" src="img/man00.jpg" width="800px" height="500px" />
+		</div>
+
+		<!-- 开始按钮 -->
+		<input id="startID" type="button" value="点击开始选老婆" style="width:175px;height:150px;font-size:22px">
+
+		<!-- 停止按钮 -->
+		<input id="stopID" type="button" value="点击立刻娶回家" style="width:175px;height:150px;font-size:22px">
+	</body>
+</html>
